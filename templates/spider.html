@@ -1,0 +1,72 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Spider
+        </title>
+        <style>
+            html,body{
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            input{
+                border: none;
+                font-size: 30px;
+                height: 75px;
+                width: 150px;
+                margin: 20px 20px 20px 20px;
+            }
+            #lead{
+                height: 35px;
+                padding-top: 15px;
+                padding-left: 10px;
+                color: #ffffff;
+                background-color: #000000;
+            }
+            #main{
+                position: relative;
+                width: 100%;
+                text-align: center;
+                vertical-align:center
+            }
+            #footnote{
+                width:50%;
+                text-align: center;
+                line-height: 22px;
+                position: relative;
+                color:#999;
+                margin:auto;
+            }
+            .leadtext{
+                font-size: 35;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #ffffff;
+                text-decoration: none;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "lead">
+            <a class='leadtext' href="/">News</a> | 
+            <a class='leadtext' href="/teams">Teams</a> | 
+            <a class='leadtext' href='/spider'>Spider</a> 
+        </div>
+        <div id = 'main'>
+            <h1>{{status}}</h1></br>
+            <form action="/spider" method='GET'>
+                <input type="submit" name='start' value='Start' {%if start == 'disabled'%} disabled {%endif%}></br>
+                <input type="submit" name='pause' value='{{buttontext}}' {%if pause == 'disabled'%}} disabled {%endif%}></br>
+                <input type='submit' name='stop' value="Stop" {%if stop == 'disabled'%} disabled {%endif%}>
+            </form>
+        </div>
+        <div id="footnote">
+            <p>
+                Powered by Django, developed by KXZ
+            </p>
+        </div> 
+    </body>
+</html> 

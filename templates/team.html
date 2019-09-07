@@ -1,0 +1,196 @@
+{% load static %}
+ <!DOCTYPE html>
+ <html>
+     <head>
+         <title>
+             NBA teams
+         </title>
+         
+         <style>
+            html,body{
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            table{
+                margin: auto;
+            }
+            table.member{
+                text-align: center;
+            }
+            th{
+                font-size: 150%;
+                color: gray;
+            }
+            td{
+                height:50px;
+            }
+            td.profile{
+                width: 100px;
+            }
+            #lead{
+                height: 35px;
+                padding-top: 15px;
+                padding-left: 10px;
+                color: #ffffff;
+                background-color: #000000;
+            }
+            #main{
+                position: relative;
+                width: 100%;
+                text-align: center;
+                vertical-align:center
+            }
+            #footnote{
+                width:50%;
+                text-align: center;
+                line-height: 22px;
+                position: relative;
+                color:#999;
+                margin:auto;
+            }
+            #relatenews{
+                margin: auto;
+                text-align: center;
+            }
+            .basic-info{
+                width: 80%;
+                margin: auto;
+                text-align: left;
+                border: 2px dashed #ccc;
+            }
+            .teamname{
+                font-weight: bold;
+                font-size: 200%;
+                text-align: center;
+            }
+            .leadtext{
+                font-size: 35;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #ffffff;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            #pages{
+                position: relative;
+                height: 20px;
+                width: 50%;
+                margin: auto;
+                text-align: center;
+            }
+            a{
+                text-decoration: none;
+                color:#000000;
+            }
+            a.page{
+                padding: 5px;
+                border: 1px solid rgba(80, 80, 80, 0.3);
+                text-decoration-line: none;
+                vertical-align: middle;
+            }
+            a.page:link{
+                color: royalblue;
+            }
+            a.page:visited{
+                color: purple;
+            }
+            a.page:hover{
+                font-size: 150%;
+            }
+            a.page:active{
+                color: #000000;
+            }
+            a.page.pagenow{
+                color: #000000;
+                font-weight: bold;
+            }
+            a.news-title:link{
+                color: royalblue;
+            }
+            a.news-title:visited{
+                color: purple;
+            }
+            a.news-title:hover{
+                font-size: 150%;
+            }
+            a.news-title:active{
+                color: #000000;
+            }
+         </style>
+     </head>
+     <body>
+        <div id = "lead">
+            <a class='leadtext' href="/">News</a> | 
+            <a class='leadtext' href="/teams">Teams</a> | 
+            <a class='leadtext' href='/spider'>Spider</a> 
+        </div>
+    </br>
+        <div id = "main">
+            <div class="basic-info">
+                <table border="0">
+                    <tr><td rowspan="4"><img src="{{team.logoLink}}"/></td><td rowspan="6"> </td><th>Team Info</th></tr>
+                    <tr><td>Set-up Time:{{team.setup}}</td></tr>
+                    <tr><td>City:{{team.city}}</td></tr>
+                    <tr><td>Main Venue:{{team.venue}}</td></tr>
+                    <tr><td rowspan="2" class="teamname">{{team.name}}</td><td>Coach:{{team.coach}}</td></tr>
+                    <tr><td>History Champions:{{team.historyChampion}}</td></tr>
+                </table>
+            </div>
+        </br>
+            <div class="basic-info">
+                <table class="member" border="0">
+                    <tr><th colspan="8">Team Members</th></tr>
+                    <tr>
+                        <td>Profile</td>
+                        <td>Name</td><td>Number</td>
+                        <td>Position</td><td>Height</td>
+                        <td>Weight</td><td>Birthday</td>
+                        <td>Experience(year)</td>
+                    </tr>
+                    {%for member in team.members%}
+                    <tr>
+                        <td class="profile"><img src="{{member.imageLink}}" width="100px"/></td>
+                        <td>{{member.name}}</td><td>{{member.num}}</td>
+                        <td>{{member.pos}}</td><td>{{member.height}}</td>
+                        <td>{{member.weight}}</td><td>{{member.birth}}</td>
+                        <td>{{member.playAge}}</td>
+                    </tr>
+                    {%endfor%}
+                </table>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <div id="relatenews">
+            <h2>Related News({{total}})</h2>
+            {%for it in news%}
+            <a class="news-title" href="/news/{{it.ID}}">{{it.title}}</a>
+            </br>
+            {%endfor%}
+            </br>
+        </div>
+        <div id="pages">
+            {%if pagenow != 1%}
+                <a class="page" href="/teams/{{id}}?page={{pagenow|add:-1}}">Previous</a>
+            {%endif%}
+            {%for page in pagenums%}
+                {%if pagenow == page%}
+                    <a class="page pagenow" href='/teams/{{id}}?page={{page}}'>{{page}}</a>
+                {%else%}
+                    <a class="page" href='/teams/{{id}}?page={{page}}'>{{page}}</a>
+                {%endif%}
+            {%endfor%}
+            {%if pagenow != pagemax%}
+                <a class="page" href="/team.html">Next</a>
+            {%endif%}
+            </br>
+        </div>
+        <div id="footnote">
+                <p>
+                    Powered by Django, developed by KXZ
+                </p>
+        </div> 
+     </body>
+ </html>

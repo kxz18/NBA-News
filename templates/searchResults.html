@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            News
+        </title>
+        
+        <style>
+           html,body{
+               height: 100%;
+               width: 100%;
+               margin: 0;
+               padding: 0;
+           }
+           #lead{
+               height: 35px;
+               padding-top: 15px;
+               padding-left: 10px;
+               color: #ffffff;
+               background-color: #000000;
+           }
+           #main{
+               position: relative;
+               width: 100%;
+               text-align: center;
+               vertical-align:center;
+           }
+           #footnote{
+                width:50%;
+                text-align: center;
+                line-height: 22px;
+                position: relative;
+                color:#999;
+                margin:auto;
+            }
+            #pages{
+                position: relative;
+                height: 20px;
+            }
+            a{
+                text-decoration: none;
+                color:#000000;
+            }
+            a.page{
+                padding: 5px;
+                border: 1px solid rgba(80, 80, 80, 0.3);
+                text-decoration-line: none;
+                vertical-align: middle;
+            }
+            a.page:link{
+                color: royalblue;
+            }
+            a.page:visited{
+                color: purple;
+            }
+            a.page:hover{
+                font-size: 150%;
+            }
+            a.page:active{
+                color: #000000;
+            }
+            a.page.pagenow{
+                color: #000000;
+                font-weight: bold;
+            }
+           .leadtext{
+                font-size: 35;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #ffffff;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            .search-bar{
+                height: 45px;
+                width:50%;
+                margin: auto;
+                position: relative;
+            }
+            .search-bar.input{
+                height: 42px;
+                width: 80%;
+                font-size: 25px;
+            }
+            .search-bar.button{
+                border:none;
+                height: 48px;
+                width:70px;
+                font-size: 20px;
+                color:#ffffff;
+                background-color: #000000;
+                position: absolute;
+            }
+            .search-status{
+                margin: auto;
+                text-align: center;
+                color:#999;
+                font-size: 15px
+            }
+            .news-box{
+                width: 50%;
+                margin: auto;
+                padding-top:10px;
+                padding-bottom: 10px;
+                border-top: 2px solid #999 ;
+            }
+            .news-title{
+                color:#000000;
+                font-size: 20px;
+                font-family: fantasy;
+                text-align: left;
+                font-weight: bold;
+            }
+            .news-brief{
+                text-align: left;
+                color:rgba(0, 0, 0, 0.7);
+                font-size: 15px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "lead">
+            <a class='leadtext' href="/">News</a> | 
+            <a class='leadtext' href="/teams">Teams</a> | 
+            <a class='leadtext' href='/spider'>Spider</a> 
+        </div>
+        </br>
+        <div class="search-bar">
+            <form action="" method="get">
+                <input class="search-bar input" type="text" name="search" value="" maxlength="255"
+                placeholder="{{keywords}}" autocomplete="on"/>
+                <input class="search-bar button"type="submit" name="submit" value="Go"/>
+            </form>
+        </div>
+        </br>
+        <div class="search-status">
+            {{count}} results have been found, used {{timeUsed}} seconds
+        </div>
+       <div id = "main">
+       </br></br>
+            {%for it in matchNews%}
+            <div class='news-box'>
+            </br>
+                <div class='news-title'>
+                    <a href="/news/{{it.ID}}">{{it.title|safe}}</a>
+                </div>
+                </br>
+                <div class='news-brief'>
+                    {{it.content|safe}}
+                </br>
+                </div>
+            </br>
+            </div>
+            {%endfor%}
+            </br>
+            <div id="pages">
+            {%if pagenow != 1%}
+                <a class="page" href="results?search={{keywords}}&page={{pagenow|add:-1}}">Previous</a>
+            {%endif%}
+            {%for page in pagenums%}
+                {%if pagenow == page%}
+                    <a class="page pagenow" href='results?search={{keywords}}&page={{page}}'>{{page}}</a>
+                {%else%}
+                    <a class="page" href='results?search={{keywords}}&page={{page}}'>{{page}}</a>
+                {%endif%}
+            {%endfor%}
+            {%if pagenow != pagemax%}
+                <a class="page" href="results?search={{keywords}}&page={{pagenow|add:1}}">Next</a>
+            {%endif%}
+            </div>
+       </div>
+        </br>
+       <div id="footnote">
+            <p>
+                Powered by Django, developed by KXZ
+            </p>
+        </div> 
+    </body>
+</html>

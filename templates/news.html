@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            News
+        </title>
+        
+        <style>
+           html,body{
+               height: 100%;
+               width: 100%;
+               margin: 0;
+               padding: 0;
+           }
+           #lead{
+               height: 35px;
+               padding-top: 15px;
+               padding-left: 10px;
+               color: #ffffff;
+               background-color: #000000;
+           }
+           #main{
+               position: relative;
+               width: 100%;
+               text-align: center;
+               vertical-align:center
+           }
+           #content{
+               margin:auto;
+               width: 50%;
+               text-align: left;
+           }
+           #footnote{
+                width:50%;
+                text-align: center;
+                line-height: 22px;
+                position: relative;
+                color:#999;
+                margin:auto;
+            }
+           .leadtext{
+                font-size: 35;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #ffffff;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            .search-bar{
+                height: 45px;
+                width:50%;
+                margin: auto;
+                position: relative;
+            }
+            .search-bar.input{
+                height: 42px;
+                width: 80%;
+                font-size: 25px;
+            }
+            .search-bar.button{
+                border:none;
+                height: 48px;
+                width:70px;
+                font-size: 20px;
+                color:#ffffff;
+                background-color: #000000;
+                position: absolute;
+            }
+            .info{
+                margin:auto;
+                text-align: left;
+                width: 50%;
+                color: #999;
+                font-size: 15px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "lead">
+            <a class='leadtext' href="/">News</a> | 
+            <a class='leadtext' href="/teams">Teams</a> | 
+            <a class='leadtext' href='/spider'>Spider</a> 
+        </div>
+        </br>
+        <div class="search-bar">
+            <form action="/results" method="get">
+                <input class="search-bar input" type="text" name="search" value="" maxlength="255"
+                placeholder="{{keywords}}" autocomplete="on"/>
+                <input class="search-bar button"type="submit" name="submit" value="Go"/>
+            </form>
+        </div>
+        </br>
+        <div id = "main">
+            <div >
+                <h1>
+                    {{news.title}}
+                </h1>
+                <p class="info">
+                    Source:{{news.source}} | Publish date:{{news.postTime}} | 
+                    <a href="{{news.link}}">Origin Link</a>
+                </p>
+                </br>
+            </br>   
+            </div>
+            <img src="{{news.imageLink}}" width="50%"/>
+            <div id="content">
+                {{news.content|safe}}
+            </div>
+        </br>
+        </div>
+        <div id="footnote">
+            <p>
+                Powered by Django, developed by KXZ
+            </p>
+        </div> 
+    </body>
+</html>

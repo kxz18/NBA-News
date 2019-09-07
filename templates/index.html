@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        ShittyNews
+    </title>
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #wrapper{
+            height:100%;
+            width:100%;
+        }
+        #lead{
+            height: 35px;
+            padding-top: 15px;
+            padding-left: 10px;
+            color: #ffffff;
+            background-color: #000000;
+        }
+        #main{
+            position: relative;
+            top:10%;
+            height: 80%;
+            width: 100%;
+            text-align: center;
+            vertical-align:center
+        }
+        #logo{
+            height:50%;
+            width:50%;
+            overflow:hidden;
+            margin:auto;
+        }
+        #footnote{
+            width:50%;
+            text-align: center;
+            line-height: 22px;
+            position: relative;
+            color:#999;
+            margin:auto;
+        }
+        .leadtext{
+            font-size: 35;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .search-bar{
+            height: 50%;
+            width:50%;
+            margin: auto;
+            position: relative;
+        }
+        .search-bar.input{
+            height: 42px;
+            width: 80%;
+            font-size: 25px;
+        }
+        .search-bar.button{
+            border:none;
+            height: 48px;
+            width:70px;
+            font-size: 20px;
+            color:#ffffff;
+            background-color: #000000;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id = "wrapper">
+        <div id = "lead">
+            <a class='leadtext' href="/">News</a> | 
+            <a class='leadtext' href="/teams">Teams</a> | 
+            <a class='leadtext' href='/spider'>Spider</a> 
+        </div>
+        <div id = "main">
+            <div id="logo">
+                <img src='{% static "logo.jpg" %}' alt='logo' width='60%'/>
+            </div>
+            <div class="search-bar">
+                <form action="results" method="get">
+                    <input class="search-bar input" type="text" name="search" value="" maxlength="255"
+                    placeholder="Search for News..." autocomplete="on"/>
+                    <input class="search-bar button"type="submit" name="submit" value="Go"/>
+                </form>
+            </div>
+        </div> 
+        <div id="footnote">
+            <p>
+                Powered by Django, developed by KXZ
+            </p>
+        </div> 
+    </div>
+</body>
+</html>
